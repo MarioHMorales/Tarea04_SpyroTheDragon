@@ -95,12 +95,6 @@ Navegar mediante el menú inferior:
 
 ---
 
-## 🖼️ Captura de pantallas
-
-| Inicio Guía | Tabs | Fin Guía |
-|------------|------|----------|
-| ![Inicio](images/inicio.png) | ![Tabs](images/tabs.png) | ![Fin](images/fin.png) |
-
 ## 🧠 Conclusiones del desarrollador
 
 Durante el desarrollo de esta aplicación se han aplicado diversos conceptos clave del desarrollo Android, como el uso de fragments, navegación mediante Navigation Component y gestión de interfaces dinámicas.
