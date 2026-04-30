@@ -1,13 +1,16 @@
 package dam.pmdm.spyrothedragon.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dam.pmdm.spyrothedragon.R
+import dam.pmdm.spyrothedragon.VideoActivity
 import dam.pmdm.spyrothedragon.adapters.WorldsAdapter
 import dam.pmdm.spyrothedragon.databinding.FragmentWorldsBinding
 import dam.pmdm.spyrothedragon.models.World
@@ -24,6 +27,10 @@ class WorldsFragment : Fragment() {
     private lateinit var adapter: WorldsAdapter
     private val worldsList = mutableListOf<World>()
 
+    private var clickCount = 0
+    private var lastClickTime: Long = 0
+    private var lastWorldClicked: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,7 +41,11 @@ class WorldsFragment : Fragment() {
 
         recyclerView = binding.recyclerViewWorlds
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = WorldsAdapter(worldsList)
+        adapter = WorldsAdapter(worldsList) {
+
+            val intent = Intent(requireContext(), VideoActivity::class.java)
+            startActivity(intent)
+        }
         recyclerView.adapter = adapter
 
         loadWorlds()

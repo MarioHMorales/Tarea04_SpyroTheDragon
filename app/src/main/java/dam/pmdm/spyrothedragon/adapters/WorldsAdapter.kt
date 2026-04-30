@@ -10,7 +10,8 @@ import dam.pmdm.spyrothedragon.R
 import dam.pmdm.spyrothedragon.models.World
 
 class WorldsAdapter(
-    private val list: List<World>
+    private val list: List<World>,
+    private val onItemClick: (World) -> Unit
 ) : RecyclerView.Adapter<WorldsAdapter.WorldsViewHolder>() {
 
     private val worldImages = mapOf(
@@ -25,6 +26,10 @@ class WorldsAdapter(
         "sunset_beach" to R.drawable.sunset_beach
     )
 
+    private var clickCount = 0
+    private var lastClickTime: Long = 0
+    private var lastClickedPosition = -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorldsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.cardview, parent, false)
@@ -33,10 +38,34 @@ class WorldsAdapter(
 
     override fun onBindViewHolder(holder: WorldsViewHolder, position: Int) {
         val world = list[position]
+
         holder.nameTextView.text = world.name
 
         val drawableRes = worldImages[world.image] ?: R.drawable.placeholder
         holder.imageImageView.setImageResource(drawableRes)
+
+        holder.itemView.setOnClickListener {
+            val currentTime = System.currentTimeMillis()
+
+            val adapterPosition = holder.adapterPosition
+            if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
+
+            if (adapterPosition == lastClickedPosition && currentTime - lastClickTime < 1000) {
+                clickCount++
+            } else {
+                clickCount = 1
+            }
+
+            lastClickedPosition = adapterPosition
+            lastClickTime = currentTime
+
+            if (clickCount == 3) {
+                clickCount = 0
+                lastClickedPosition = -1
+
+                onItemClick(list[adapterPosition])
+            }
+        }
     }
 
     override fun getItemCount(): Int = list.size

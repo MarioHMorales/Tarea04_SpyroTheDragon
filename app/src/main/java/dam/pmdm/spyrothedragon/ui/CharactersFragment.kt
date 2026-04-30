@@ -34,7 +34,9 @@ class CharactersFragment : Fragment() {
 
         recyclerView = binding.recyclerViewCharacters
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = CharactersAdapter(charactersList)
+        adapter = CharactersAdapter(charactersList) {
+            showRiptoAnimation()
+        }
         recyclerView.adapter = adapter
 
         loadCharacters()
@@ -84,5 +86,11 @@ class CharactersFragment : Fragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun showRiptoAnimation() {
+        val dialog = android.app.Dialog(requireContext(), android.R.style.Theme_Translucent_NoTitleBar_Fullscreen)
+        dialog.setContentView(R.layout.animation_ripto)
+        dialog.show()
     }
 }
