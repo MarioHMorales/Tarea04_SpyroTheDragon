@@ -55,7 +55,7 @@ Además, incluye una guía inicial paso a paso para ayudar al usuario a entender
 1. Clonar el repositorio:
 
 ```bash
-git clone https://github.com/tu-usuario/spyro-guide-app.git
+https://github.com/MarioHMorales/Tarea04_SpyroTheDragon.git
 ````
 
 ### 2. Abrir el proyecto en Android Studio
